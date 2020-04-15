@@ -70,6 +70,17 @@ h1 {
     font-size:  18px;
     border-radius: 20px;
 }
+.loginbox input[value="Clock In"]
+{
+    width: 50%;
+    height: 30px;
+}
+
+.loginbox input[value="Clock Out"]
+{
+    width: 50%;
+    height: 30px;
+}
 
 .loginbox input[type="submit"]:hover{
     cursor: pointer;
