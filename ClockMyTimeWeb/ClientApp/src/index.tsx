@@ -1,27 +1,22 @@
-import 'bootstrap/dist/css/bootstrap.css';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography'
+import TextField from '@material-ui/core/TextField'
+import './custom.css'
 
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
-import { createBrowserHistory } from 'history';
-import configureStore from './store/configureStore';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+function App() {
+    return (
+        <div className="content">
+            <Button variant="contained" color="primary">
+                Hello World
+            </Button>
 
-// Create browser history to use in the Redux store
-const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href') as string;
-const history = createBrowserHistory({ basename: baseUrl });
+            <form className="my-class" noValidate autoComplete="off">
+                <TextField id="standard-basic" label="Standard" />
+            </form>
+        </div>
+    );
+}
 
-// Get the application-wide store instance, prepopulating with state from the server where available.
-const store = configureStore(history);
-
-ReactDOM.render(
-    <Provider store={store}>
-        <ConnectedRouter history={history}>
-            <App />
-        </ConnectedRouter>
-    </Provider>,
-    document.getElementById('root'));
-
-registerServiceWorker();
+ReactDOM.render(<App />, document.querySelector('#root'));
