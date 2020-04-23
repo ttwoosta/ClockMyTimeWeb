@@ -78,4 +78,16 @@ function() {
 document.querySelector('.close').addEventListener('click',
 function() {
     document.querySelector('.bg-modal').style.display = 'none';
-});
+    });
+
+
+//Stores a clockin in a variable
+function ProcessClockin(time) {
+    var c_in = document.getElementById(time).value;
+
+}
+//Stores a clockout in a variable
+function ProcessClockout(time) {
+    var c_out = document.getElementById(time).value;
+
+}

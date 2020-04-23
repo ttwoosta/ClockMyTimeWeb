@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8"/>
@@ -42,6 +42,20 @@
                 <p class="schedule-title">Schedule</p>
                 <p class="schedule"> 10:00 a.m. to 2:00 p.m.</p>
             </div>
+        </div>
+
+        <div id="ClockInOut-container">
+            <form action="/home.html">
+                <label for="Clockin">Clock-in (date and time):</label>
+                <input type="datetime-local" id="Clockin" name="Clockin">
+                <input type="submit" onClick="ProcessClockin('Clockin')" value="Submit">
+            </form>
+            <p></p>
+            <form action="/home.html">
+                <label for="Clockout">Clock-out (date and time):</label>
+                <input type="datetime-local" id="Clockout" name="Clockout">
+                <input type="submit" onClick="ProcessClockout('Clockout')" value="Submit">
+            </form>
         </div>
         <script type="text/javascript" src="script.js"></script>
     </body>

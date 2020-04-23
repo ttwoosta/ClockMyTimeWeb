@@ -80,6 +80,11 @@ body {
     cursor: pointer;
 }
 
+/*Clockinout*/
+#ClockInOut-container {
+    text-align: center;
+}
+
 /* Calendar Pop-Up */
 
 .bg-modal {
