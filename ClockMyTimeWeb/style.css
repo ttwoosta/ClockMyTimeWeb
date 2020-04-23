@@ -55,7 +55,6 @@ body {
 }
 
 /* Calendar Styles */
-/*TODO update border to not be width of entire page*/
 #calendar-container {
     margin-top: 10px;
     text-align: center;
@@ -75,9 +74,55 @@ body {
 #calendar-dates>table>tr>td {
     padding: 10px;
 }
-/*TODO exclude day letters from hover effect*/
+
 #calendar-dates>table>tr>td:hover {
     color: cyan;
+    cursor: pointer;
+}
+
+/* Calendar Pop-Up */
+
+.bg-modal {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.modal-content {
+    width: 500px;
+    height: 300px;
+    background-color: white;
+    border-radius: 4px;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+}
+
+.schedule-title {
+    font-size: xx-large;
+}
+
+.schedule {
+    font-size: x-large;
+}
+
+.close {
+    position: absolute;
+    top: 0;
+    right: 14px;
+    font-size: 42px;
+    transform: rotate(45deg);
     cursor: pointer;
 }
 

@@ -1,3 +1,4 @@
+/* CALENDAR SCRIPT */
 window.onload = function(){
     var d = new Date();
     var month_name = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -67,3 +68,14 @@ function get_calendar(day_no, days){
     }
 	return table;
 }
+
+/* POP UP SCRIPT */
+document.getElementById('calendar-dates').addEventListener('click',
+function() {
+    document.querySelector('.bg-modal').style.display = 'flex';
+});
+
+document.querySelector('.close').addEventListener('click',
+function() {
+    document.querySelector('.bg-modal').style.display = 'none';
+});
