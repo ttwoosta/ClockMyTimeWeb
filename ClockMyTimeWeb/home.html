@@ -46,15 +46,15 @@
 
         <div id="ClockInOut-container">
             <form action="/home.html">
-                <label for="Clockin">Clock-in (date and time):</label>
+                <!--<label id="ClockLabel" for="Clockin">Clock-in (date and time):</label>-->
                 <input type="datetime-local" id="Clockin" name="Clockin">
-                <input type="submit" onClick="ProcessClockin('Clockin')" value="Submit">
+                <input id="ClockInButton" type="submit" onClick="ProcessClockin('Clockin')" value="Clock In">
             </form>
             <p></p>
             <form action="/home.html">
-                <label for="Clockout">Clock-out (date and time):</label>
+                <!--<label id="ClockLabel" for="Clockout">Clock-out (date and time):</label>-->
                 <input type="datetime-local" id="Clockout" name="Clockout">
-                <input type="submit" onClick="ProcessClockout('Clockout')" value="Submit">
+                <input id="ClockOutButton" type="submit" onClick="ProcessClockout('Clockout')" value="Clock Out">
             </form>
         </div>
         <script type="text/javascript" src="script.js"></script>

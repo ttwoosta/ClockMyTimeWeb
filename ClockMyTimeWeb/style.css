@@ -82,7 +82,63 @@ body {
 
 /*Clockinout*/
 #ClockInOut-container {
+    display: grid;
+    justify-content: center;
+    padding: 40px;
+}
+
+#ClockInOut-container>form {
+    display: block;
+}
+
+#Clockin {
     text-align: center;
+    border-radius: 3px;
+}
+
+#Clockout {
+    text-align: center;
+    border-radius: 3px;
+}
+
+#ClockInButton {
+    background: #19da69;
+    padding: 5px 24px;
+    font-size: 25px;
+    color: #fff;
+    border: none;
+    margin: 0 10px;
+    border-radius: 3px;
+    box-shadow: 0 3px 0 #2fa35f;
+    cursor: pointer;
+
+    -webkit-transition: background .2s ease;
+    -moz-transition: background .2s ease;
+    -o-transition: background .2s ease;
+}
+
+#ClockOutButton {
+    background: #e63f21;
+    padding: 5px 15px;
+    font-size: 25px;
+    color: #fff;
+    border: none;
+    margin: 0 10px;
+    border-radius: 3px;
+    box-shadow: 0 3px 0 #9c3523;
+    cursor: pointer;
+
+    -webkit-transition: background .2s ease;
+    -moz-transition: background .2s ease;
+    -o-transition: background .2s ease;
+}
+
+#ClockInButton:hover {
+    background: #2fa35f;
+}
+
+#ClockOutButton:hover {
+    background: #9c3523;
 }
 
 /* Calendar Pop-Up */
