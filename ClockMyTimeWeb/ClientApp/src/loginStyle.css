@@ -87,3 +87,9 @@ h1 {
 .loginbox a:hover {
     color: #25fb41;
 }
+
+.spinner-parent {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
