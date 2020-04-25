@@ -4,6 +4,7 @@ import { createStore, Action } from 'redux';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Utils from '../utils';
+import Spinner from "./Spinner";
 
 class Home extends React.Component {
 
@@ -43,13 +44,7 @@ class Home extends React.Component {
       case "beginGetProfile":
 
         return (
-          <div className="spinner-parent">
-              <div className='lds-facebook'>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-              </div>
-          </div>
+          <Spinner></Spinner>
         );
 
         break;

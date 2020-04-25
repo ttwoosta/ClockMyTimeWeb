@@ -7,11 +7,13 @@ export default class Utils {
     constructor(name: string) {
       this.name = name;
     }
+
+    static readonly m_BaseURL = 'http://localhost:8000/';
   
     public static requestCsrfToken() {
         return axios({
             url: '/get-csrf-token/',
-            baseURL: 'http://localhost:8000/',
+            baseURL: Utils.m_BaseURL,
             maxRedirects: 0,
           })
           .then(function (response: any) {
@@ -22,7 +24,7 @@ export default class Utils {
     public static createApiClient() {
         const instance = axios.create({
             withCredentials: true,
-            baseURL: 'http://localhost:8000/',
+            baseURL: Utils.m_BaseURL,
             timeout: 1000,
             maxRedirects: 0,
           });
