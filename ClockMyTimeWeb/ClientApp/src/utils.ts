@@ -8,7 +8,7 @@ export default class Utils {
       this.name = name;
     }
 
-    static readonly m_BaseURL = 'https://scottflaskapptutorial.herokuapp.com/';
+    static readonly m_BaseURL = 'https://becker-clock-api.azurewebsites.net/';
   
     public static requestCsrfToken() {
         return axios({
