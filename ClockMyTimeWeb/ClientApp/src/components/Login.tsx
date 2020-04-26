@@ -26,12 +26,9 @@ class LoginForm extends React.Component {
         const self = this;
         self.setState({ event: "beginGetToken" });
 
-        axios({
-          url: '/get-csrf-token/',
-          baseURL: 'http://localhost:8000/',
-          maxRedirects: 0,
-          withCredentials: true,
-        })
+        const transport = Utils.createApiClient();
+
+        transport.get('/get-csrf-token/')
         .then(function (response: any) {
             Utils.setCsrfToken(response.data["csrftoken"])
             console.log(response);
@@ -69,19 +66,14 @@ class LoginForm extends React.Component {
             form.append('username', this.state.username);
             form.append('password', this.state.password);
 
-            const transport = axios.create({
-                withCredentials: true,
-                baseURL: 'http://localhost:8000/',
-                timeout: 1000,
-                headers: {'X-XSRF-TOKEN': token}
-              });
+            const transport = Utils.createApiClient();
 
             transport.post('/accounts/login/', form)
             .then(function (response: any) {
                 console.log(response);
                 
-                Utils.setUsername(response.data["username"]);
-                Utils.setEmail(response.data["email"]);
+                Utils.setUsername(response.data[Utils.kUsername]);
+                Utils.setEmail(response.data[Utils.kEmail]);
                 Utils.setFullName(response.data[Utils.kFullname])
                 
                 document.location.pathname = '/';

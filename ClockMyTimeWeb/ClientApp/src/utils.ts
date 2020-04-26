@@ -22,11 +22,14 @@ export default class Utils {
     }
 
     public static createApiClient() {
+        var token = Utils.getCsrfToken();
+
         const instance = axios.create({
             withCredentials: true,
             baseURL: Utils.m_BaseURL,
             timeout: 1000,
             maxRedirects: 0,
+            headers: {'X-XSRF-TOKEN': token}
           });
         
         instance.interceptors.request.use(function (response) {
