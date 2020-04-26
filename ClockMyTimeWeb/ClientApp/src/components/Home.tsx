@@ -45,6 +45,10 @@ class Home extends React.Component {
       })
       .catch(function (error: any) {
           console.error(error);
+          
+          if (error.response && error.response.status === 401)
+            Utils.removeCreads();
+
           self.setState({ event: "failGetProfile" });
           window.location.pathname = "/login";
       })

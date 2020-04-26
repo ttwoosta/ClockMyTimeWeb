@@ -8,7 +8,7 @@ export default class Utils {
       this.name = name;
     }
 
-    static readonly m_BaseURL = 'http://localhost:8000/';
+    static readonly m_BaseURL = 'https://scottflaskapptutorial.herokuapp.com/';
   
     public static requestCsrfToken() {
         return axios({
@@ -27,20 +27,34 @@ export default class Utils {
         const instance = axios.create({
             withCredentials: true,
             baseURL: Utils.m_BaseURL,
-            timeout: 1000,
-            maxRedirects: 0,
-            headers: {'X-XSRF-TOKEN': token}
+            headers: {
+                'X-XSRF-TOKEN': token
+            }
           });
-        
-        instance.interceptors.request.use(function (response) {
+
+          instance.interceptors.request.use(function (config) {
+            // Do something before request is sent
+            if (config.url === '/accounts/login/') {
+                debugger;
+                var token = Utils.getCsrfToken();
+                config.headers.common.Cookie = "xsrf=" + token;
+            }
+            return config;
+          }, function (error) {
+            return Promise.reject(error);
+          });
+
+        // Add a response interceptor
+        instance.interceptors.response.use(function (response) {
             // Any status code that lie within the range of 2xx cause this function to trigger
             // Do something with response data
             return response;
-          }, function (error) {
+        }, function (error) {
             // Any status codes that falls outside the range of 2xx cause this function to trigger
             // Do something with response error
             return Promise.reject(error);
-          });
+        });
+                
         return instance;
     }
 
