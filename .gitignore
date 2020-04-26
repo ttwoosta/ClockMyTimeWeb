@@ -339,3 +339,4 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 *.map
+ClockMyTimeWeb/ClientApp/package-lock.json

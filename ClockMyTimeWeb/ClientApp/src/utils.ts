@@ -8,7 +8,7 @@ export default class Utils {
       this.name = name;
     }
 
-    static readonly m_BaseURL = 'https://becker-clock-api.azurewebsites.net/';
+    static readonly m_BaseURL = process.env.REACT_APP_CMT_API_URL;
   
     public static requestCsrfToken() {
         return axios({
@@ -33,12 +33,6 @@ export default class Utils {
           });
 
           instance.interceptors.request.use(function (config) {
-            // Do something before request is sent
-            if (config.url === '/accounts/login/') {
-                debugger;
-                var token = Utils.getCsrfToken();
-                config.headers.common.Cookie = "xsrf=" + token;
-            }
             return config;
           }, function (error) {
             return Promise.reject(error);
