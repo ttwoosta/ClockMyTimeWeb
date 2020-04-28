@@ -6,7 +6,7 @@ import 'react-calendar/dist/Calendar.css';
 import Utils from '../utils';
 import Spinner from "./Spinner";
 import './homeStyles.css';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, FormText, FormFeedback } from 'reactstrap';
 
 class Home extends React.Component {
 
@@ -144,6 +144,11 @@ class Home extends React.Component {
       case "endedGetProfile":
         
         let username = Utils.getFullName();
+
+        let timeIn = this.state.timeIn;
+        let timeOut = this.state.timeOut;
+
+        var isInvalid = timeOut <= timeIn;
         
         return (
           <div className="home-content">
@@ -158,14 +163,16 @@ class Home extends React.Component {
               </FormGroup>
               <FormGroup>
                 <Label>Time In:</Label>
-                <Input type="time" id="tf-time-in" name="timeIn" value={this.state.timeIn} onChange={this.handleChange} />
+                <Input type="time" id="tf-time-in" name="timeIn" value={this.state.timeIn} onChange={this.handleChange} invalid={isInvalid} />
               </FormGroup>
               <FormGroup>
                 <Label>Time Out:</Label>
-                <Input type="time" id="tf-time-out" name="timeOut" value={this.state.timeOut}  onChange={this.handleChange} />
+                <Input type="time" id="tf-time-out" name="timeOut" value={this.state.timeOut}  onChange={this.handleChange}  invalid={isInvalid} />
+                <FormFeedback tooltip>Cannot enter time out ealier than time in</FormFeedback>
+                <FormText>Time out must later than time in.</FormText>
               </FormGroup>
               <div className="text-container">
-              <Button type="submit">Submit</Button>
+              <Button type="submit" disabled={isInvalid}>Submit</Button>
               </div>
             </Form>
           </div>

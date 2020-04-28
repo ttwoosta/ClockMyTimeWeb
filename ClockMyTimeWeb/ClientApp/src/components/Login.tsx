@@ -54,38 +54,35 @@ class LoginForm extends React.Component {
     handleSubmit(event: any) {
         event.preventDefault();
 
-        if (window.confirm("Are you ready?")) {
+        let self = this;
+        this.setState({ event: "beginLogin" });
 
-            let self = this;
-            this.setState({ event: "beginLogin" });
+        var token = Utils.getCsrfToken();
 
-            var token = Utils.getCsrfToken();
+        const form = new FormData();
+        form.append('csrfmiddlewaretoken', token);
+        form.append('username', this.state.username);
+        form.append('password', this.state.password);
 
-            const form = new FormData();
-            form.append('csrfmiddlewaretoken', token);
-            form.append('username', this.state.username);
-            form.append('password', this.state.password);
+        const transport = Utils.createApiClient();
 
-            const transport = Utils.createApiClient();
-
-            transport.post('/accounts/login/', form)
-            .then(function (response: any) {
-                console.log(response);
-                
-                Utils.setUsername(response.data[Utils.kUsername]);
-                Utils.setEmail(response.data[Utils.kEmail]);
-                Utils.setFullName(response.data[Utils.kFullname])
-                
-                document.location.pathname = '/';
-            })
-            .catch(function (error: any) {
-                console.log(error);
-                self.setState({ event: "failLogin" });
-            })
-            .then(function () {
-                // always executed
-            });
-        }
+        transport.post('/accounts/login/', form)
+        .then(function (response: any) {
+            console.log(response);
+            
+            Utils.setUsername(response.data[Utils.kUsername]);
+            Utils.setEmail(response.data[Utils.kEmail]);
+            Utils.setFullName(response.data[Utils.kFullname])
+            
+            document.location.pathname = '/';
+        })
+        .catch(function (error: any) {
+            console.log(error);
+            self.setState({ event: "failLogin" });
+        })
+        .then(function () {
+            // always executed
+        });
     }
 
     render() {

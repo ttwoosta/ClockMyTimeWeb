@@ -199,3 +199,12 @@ body {
 .chat-form button:hover {
     background: #13c8d9;
 }
+
+.paycheck-row-total td {
+    text-align: right;
+    font-weight: bold;
+}
+
+.currency-cell {
+    text-align: right;
+}

@@ -10,12 +10,13 @@ import Logout from './components/Logout';
 
 import './custom.css'
 import Utils from './utils';
+import MyPay from './components/MyPay';
 
 export default () => (
     <Layout isLoggedIn={Utils.isLogginIn()}>
         <Route exact path='/' component={Home} />
-        <Route path='/counter' component={MessageBoard} />
-        <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
+        <Route path='/message-board' component={MessageBoard} />
+        <Route path='/my-pay' component={MyPay} />
         <Route path='/login' component={LoginForm} />
         <Route path='/logout' component={Logout} />
     </Layout>

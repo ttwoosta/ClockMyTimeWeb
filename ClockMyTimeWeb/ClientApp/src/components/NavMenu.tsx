@@ -8,6 +8,10 @@ export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean }
         isOpen: false
     };
 
+    componentDidMount() {
+
+    }
+
     public render() {
         return (
             <header>
@@ -21,10 +25,10 @@ export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean }
                                     <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/counter">Message Board</NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/message-board">Message Board</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/fetch-data">My Pay</NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/my-pay">My Pay</NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink tag={Link} className="text-dark" to="/logout">Logout</NavLink>
