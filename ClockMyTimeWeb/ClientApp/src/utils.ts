@@ -8,7 +8,7 @@ export default class Utils {
       this.name = name;
     }
 
-    static readonly m_BaseURL = process.env.REACT_APP_CMT_API_URL;
+    static readonly m_BaseURL = "https://becker-clock-api.azurewebsites.net/";
   
     public static requestCsrfToken() {
         return axios({
