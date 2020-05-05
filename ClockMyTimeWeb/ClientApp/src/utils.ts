@@ -8,8 +8,8 @@ export default class Utils {
       this.name = name;
     }
 
-    static readonly m_BaseURL = "https://becker-clock-api.azurewebsites.net/";
-    //static readonly m_BaseURL = "http://localhost:8000/";
+    //static readonly m_BaseURL = "https://becker-clock-api.azurewebsites.net/";
+    static readonly m_BaseURL = "http://localhost:8000/";
   
     public static requestCsrfToken() {
         return axios({

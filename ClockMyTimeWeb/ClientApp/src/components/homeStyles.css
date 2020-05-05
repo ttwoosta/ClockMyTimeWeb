@@ -8,3 +8,13 @@
 .text-container {
     text-align: center;
 }
+
+.cal-tile-highlight {
+    text-decoration: underline black;
+    font-weight: bold;
+
+}
+
+.buttons-container {
+    padding: 1em;
+}

@@ -14,6 +14,9 @@ class LoginForm extends React.Component {
         password: '',
     }
 
+    // Declare a new state variable, which we'll call "count"
+    //const [count, setCount] = useState(0);
+
     constructor(props: Readonly<{}>) {
         super(props);
         

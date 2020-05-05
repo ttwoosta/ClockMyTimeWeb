@@ -43,6 +43,7 @@ class MyPay extends React.Component {
     }
 
     render() {
+        let userFullName = Utils.getFullName();
 
         switch(this.state.event) {
             case "beginFetchData":
@@ -57,7 +58,8 @@ class MyPay extends React.Component {
             case "endedFetchData":
                 return (
                     <div>
-                        <h1>My Table place holder</h1>
+                        <h1>{userFullName}'s Invoice</h1>
+                        <Button onClick={this.onNewTimeButtonClick}>New Time</Button>
                         {this.renderMyPayTable()}
                     </div>
                 );
@@ -126,6 +128,10 @@ class MyPay extends React.Component {
                     self.setState({ event: "failDeleteItem" });
                 }) 
             }
+      }
+
+      onNewTimeButtonClick(e) {
+        window.location.pathname = "/new-time";
       }
 }
 

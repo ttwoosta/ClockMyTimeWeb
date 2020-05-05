@@ -6,29 +6,30 @@ import 'react-calendar/dist/Calendar.css';
 import Utils from '../utils';
 import Spinner from "./Spinner";
 import './homeStyles.css';
-import { Button, Form, FormGroup, Label, Input, FormText, FormFeedback } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, FormText, FormFeedback, Table } from 'reactstrap';
+import Clock from './Clock';
 
 class Home extends React.Component {
 
   state = {
     event: "initial",
-    date: '',
-    timeIn: '',
-    timeOut: ''
+    date: new Date(),
+    clockin: false
   };
 
   constructor(props: Readonly<{}>) {
     super(props);
-    
-    this.handleChange = this.handleChange.bind(this);
-    this.onFormTimeSubmit = this.onFormTimeSubmit.bind(this);
+
     this.onTryAgainButtonClick = this.onTryAgainButtonClick.bind(this);
-    this.onSubmitAnotherButtonClick = this.onSubmitAnotherButtonClick.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
+    this.onClickDate = this.onClickDate.bind(this);
+    this.onClockInButtonClick = this.onClockInButtonClick.bind(this);
+    this.onClockOutButtonClick = this.onClockOutButtonClick.bind(this);
   }
 
   // This method is called when the component is first added to the document
   public componentDidMount() {
-      
+
       const self = this;
       self.setState({ event: "beginGetProfile" });
 
@@ -37,7 +38,7 @@ class Home extends React.Component {
       transport.get('/accounts/profile/')
       .then(function (response: any) {
           console.log(response);
-          
+
           Utils.setUsername(response.data["username"]);
           Utils.setEmail(response.data["email"]);
           Utils.setFullName(response.data[Utils.kFullname])
@@ -45,7 +46,7 @@ class Home extends React.Component {
       })
       .catch(function (error: any) {
           console.error(error);
-          
+
           if (error.response && error.response.status === 401)
             Utils.removeCreads();
 
@@ -53,10 +54,26 @@ class Home extends React.Component {
           window.location.pathname = "/login";
       })
 
-      const d = new Date();
-      this.state.date = this.dateToDateString(d);
-      this.state.timeIn = this.dateToTimeString(d);
-      this.state.timeOut = this.dateToTimeString(d);
+  }
+
+  handleDateChange(date: any) {
+    this.setState({date});
+  }
+
+    m_knownDates = [2, 3, 4, 6,7];
+
+    onClickDate(date: Date) {
+        
+        if (this.m_knownDates.indexOf(date.getDate()) > 0)
+            return 
+    }
+
+  getTileClassName(date, view) : string {
+    if (view === 'month') {
+      if (date.getDay() === 3 )
+        return 'my_class';
+    }
+    return null;
   }
 
   dateToDateString(d: Date) {
@@ -75,57 +92,16 @@ class Home extends React.Component {
     return timeValue;
   }
 
-  onFormTimeSubmit(e) {
-    e.preventDefault();
-
-    if (window.confirm("Are you ready to submit the time?")) {
-      
-      const transport = Utils.createApiClient();
-      var token = Utils.getCsrfToken();
-
-      const self = this;
-      self.setState({ event: "beginSubmitTime" });
-
-      transport.post('/schedules/', {
-        date: this.state.date,
-        timeIn: this.state.timeIn,
-        timeOut: this.state.timeOut
-      })
-      .then(function (response: any) {
-          console.log(response);          
-          self.setState({ event: "endedSubmitTime" });
-      })
-      .catch(function (error: any) {
-          console.error(error);
-          self.setState({ event: "failSubmitTime" });
-      })
-    }
-    else {
-      e.preventDefault();
-    }
-  }
-
-  handleChange(event: any) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    
-    this.setState({
-      [name]: value,
-    });
-    
-  }
-
   onTryAgainButtonClick(e) {
     this.setState({event: "endedGetProfile"})
   }
 
-  onSubmitAnotherButtonClick(e) {
-    const d = new Date();
-    this.state.date = this.dateToDateString(d);
-    this.state.timeIn = this.dateToTimeString(d);
-    this.state.timeOut = this.dateToTimeString(d);
-    this.setState({event: "endedGetProfile"})
+  onClockInButtonClick(e) {
+    this.setState({"clockin": true});
+  }
+
+  onClockOutButtonClick(e) {
+      this.setState({"clockin": false});
   }
 
   render() {
@@ -142,39 +118,25 @@ class Home extends React.Component {
         break;
 
       case "endedGetProfile":
-        
+
         let username = Utils.getFullName();
 
-        let timeIn = this.state.timeIn;
-        let timeOut = this.state.timeOut;
-
-        var isInvalid = timeOut <= timeIn;
-        
         return (
           <div className="home-content">
             <h1>Welcome {username} to Clock My Time</h1>
             <p>Please select a date a clock in</p>
-    
-            <Form className="form-calendar" onSubmit={this.onFormTimeSubmit} >
+
+            <Calendar className="calendar" onClickDay={this.onClickDate} onChange={this.handleDateChange} value={this.state.date}
+            tileClassName={({ date, view }) => {
+                if (view === 'month') {
+                    if (this.m_knownDates.indexOf(date.getDate()) > 0) {
+                        return 'cal-tile-highlight';
+                    }
+                }
+                return null;
+              }} />
+            {this.renderButtonsGroup()}
               
-              <FormGroup>
-                <Label>Date:</Label>
-                <Input type="date" id="tf-date" name="date" value={this.state.date} onChange={this.handleChange} />
-              </FormGroup>
-              <FormGroup>
-                <Label>Time In:</Label>
-                <Input type="time" id="tf-time-in" name="timeIn" value={this.state.timeIn} onChange={this.handleChange} invalid={isInvalid} />
-              </FormGroup>
-              <FormGroup>
-                <Label>Time Out:</Label>
-                <Input type="time" id="tf-time-out" name="timeOut" value={this.state.timeOut}  onChange={this.handleChange}  invalid={isInvalid} />
-                <FormFeedback tooltip>Cannot enter time out ealier than time in</FormFeedback>
-                <FormText>Time out must later than time in.</FormText>
-              </FormGroup>
-              <div className="text-container">
-              <Button type="submit" disabled={isInvalid}>Submit</Button>
-              </div>
-            </Form>
           </div>
         );
 
@@ -184,21 +146,6 @@ class Home extends React.Component {
         return (<h1>Unauthorize</h1>);
         break;
 
-      case "endedSubmitTime":
-        return (
-          <div className="text-container">
-            <h1>The time has been submit successfully.</h1>
-            <Button type="button" onClick={this.onSubmitAnotherButtonClick}>Submit Another</Button>
-          </div>);
-        break;
-
-      case "failSubmitTime":
-        return (
-          <div className="text-container">
-            <h1>Unable to submit the Time at the moment.</h1>
-            <Button type="button" onClick={this.onTryAgainButtonClick}>Try Again</Button>
-          </div>);
-        break;
     }
 
     return (
@@ -207,6 +154,21 @@ class Home extends React.Component {
       </div>
     );
 
+  }
+
+  renderButtonsGroup() {
+      if(!this.state.clockin) {
+        return (<div className="buttons-container">
+            <Button color="primary" onClick={this.onClockInButtonClick}>Clock In</Button>
+        </div>);
+      }
+      else {
+        return (<div className="buttons-container">
+            
+            <Clock />
+            <Button color="danger" onClick={this.onClockOutButtonClick}>Clock Out</Button>
+        </div>);
+      }
   }
 }
 
