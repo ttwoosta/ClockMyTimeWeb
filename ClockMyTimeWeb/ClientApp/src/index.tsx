@@ -8,10 +8,13 @@ import { createBrowserHistory } from 'history';
 import configureStore from './store/configureStore';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import Utils from './utils';
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href') as string;
 const history = createBrowserHistory({ basename: baseUrl });
+const apiEndpoint = document.getElementById("api-endpoint").getAttribute('href') as string;
+Utils.m_BaseURL = apiEndpoint;
 
 // Get the application-wide store instance, prepopulating with state from the server where available.
 const store = configureStore(history);
