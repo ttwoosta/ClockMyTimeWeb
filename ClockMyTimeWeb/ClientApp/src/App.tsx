@@ -7,6 +7,7 @@ import FetchData from './components/FetchData';
 import MessageBoard from './components/MessageBoard';
 import LoginForm from './components/Login';
 import Logout from './components/Logout';
+import Resume from './components/Resume';
 
 import './custom.css'
 import Utils from './utils';
@@ -15,7 +16,8 @@ import NewTime from './components/NewTime';
 
 export default () => (
     <Layout isLoggedIn={Utils.isLogginIn()}>
-        <Route exact path='/' component={Home} />
+        <Route exact path='/' component={Resume} />
+        <Route exact path='/home' component={Home} />
         <Route path='/message-board' component={MessageBoard} />
         <Route path='/my-pay' component={MyPay} />
         <Route path='/login' component={LoginForm} />

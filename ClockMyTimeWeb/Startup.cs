@@ -59,7 +59,7 @@ namespace ClockMyTimeWeb
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
+                    spa.UseReactDevelopmentServer(npmScript: "dev");
                 }
             });
         }
